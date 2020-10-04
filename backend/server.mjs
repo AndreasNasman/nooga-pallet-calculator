@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express from "express";
 import mongoose from "mongoose";
 import Pallet from "./models/pallet.mjs";
@@ -27,6 +28,21 @@ router.route("/").get((request, response) => {
   });
 });
 
+router.route("/add").post((request, response) => {
+  const pallet = new Pallet(request.body);
+  pallet
+    .save()
+    .then((result) => {
+      console.log(result);
+      response.status(200).json("Adding pallet ID succeeded.");
+    })
+    .catch((error) => {
+      console.error(error);
+      response.status(500).json("Adding new pallet failed.");
+    });
+});
+
+app.use(bodyParser.json());
 app.use("/pallets", router);
 
 app.listen(PORT, () => {
