@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import Pallet from "./models/pallet.mjs";
 
 const PORT = 4000;
 
@@ -17,6 +18,16 @@ db.once("open", () => {
 
 /* Express */
 const app = express();
+const router = express.Router();
+
+router.route("/").get((request, response) => {
+  Pallet.find({}, (error, documents) => {
+    if (error) console.error(error);
+    else response.json(documents);
+  });
+});
+
+app.use("/pallets", router);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}.`);
