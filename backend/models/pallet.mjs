@@ -14,6 +14,7 @@ const palletSchema = new Schema({
     },
   ],
   creation_date: { default: Date.now, type: Date },
+  id: String,
   user: String,
 });
 

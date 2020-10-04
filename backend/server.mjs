@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import mongoose from "mongoose";
 import Pallet from "./models/pallet.mjs";
+import { generateID } from "./utilities.mjs";
 
 const PORT = 4000;
 
@@ -29,12 +30,12 @@ router.route("/").get((request, response) => {
 });
 
 router.route("/add").post((request, response) => {
-  const pallet = new Pallet(request.body);
+  const pallet = new Pallet({ ...request.body, id: generateID() });
   pallet
     .save()
     .then((result) => {
       console.log(result);
-      response.status(200).json("Adding pallet ID succeeded.");
+      response.status(200).json("Adding new pallet succeeded.");
     })
     .catch((error) => {
       console.error(error);
