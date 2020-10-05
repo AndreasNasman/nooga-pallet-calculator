@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import { DeliveryInformation } from "./components/DeliveryInformation/DeliveryInformation";
 
 export const App = () => {
   const [pallet, setPallet] = useState({});
@@ -18,12 +19,5 @@ export const App = () => {
     fetchPallet();
   }, []);
 
-  return (
-    <div>
-      <div>
-        Current pallet
-        <pre>{JSON.stringify(pallet, null, 2)}</pre>
-      </div>
-    </div>
-  );
+  return <DeliveryInformation />;
 };
