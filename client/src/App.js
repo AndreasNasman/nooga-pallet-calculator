@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
-function App() {
+export const App = () => {
+  const [pallet, setPallet] = useState({});
+
+  useEffect(() => {
+    const fetchPallet = async () => {
+      const result = await axios("http://localhost:4000/pallets");
+
+      if (result.status === 200) {
+        const currentPallet = result.data.pop();
+        setPallet(currentPallet);
+      }
+    };
+
+    fetchPallet();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        Current pallet
+        <pre>{JSON.stringify(pallet, null, 2)}</pre>
+      </div>
     </div>
   );
-}
-
-export default App;
+};
