@@ -1,4 +1,5 @@
 import { Button, Grid, MenuItem, Select, TextField } from "@material-ui/core";
+import { Save } from "@material-ui/icons";
 import * as React from "react";
 import { useState } from "react";
 import styles from "./DeliveryInformation.module.css";
@@ -148,7 +149,12 @@ export const DeliveryInformation = ({ addBox, pallet }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Button color="primary" type="submit" variant="contained">
+          <Button
+            color="primary"
+            startIcon={<Save />}
+            type="submit"
+            variant="contained"
+          >
             Save
           </Button>
         </Grid>
