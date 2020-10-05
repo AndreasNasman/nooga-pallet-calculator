@@ -2,7 +2,6 @@ import { Button, Grid, MenuItem, Select, TextField } from "@material-ui/core";
 import * as React from "react";
 import { useState } from "react";
 import styles from "./DeliveryInformation.module.css";
-import { textFieldDateFormat } from "./utilities";
 
 const initialState = {
   amount: "",
@@ -13,7 +12,7 @@ const initialState = {
   recordDate: new Date(),
 };
 
-export const DeliveryInformation = () => {
+export const DeliveryInformation = ({ addBox, pallet }) => {
   const [
     { amount, articleName, batchNumber, boxNumber, daysToDueDate, recordDate },
     setState,
@@ -31,9 +30,23 @@ export const DeliveryInformation = () => {
     setState((previousState) => ({ ...previousState, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    clearState();
+
+    try {
+      await addBox({
+        amount,
+        articleName,
+        batchNumber,
+        boxNumber,
+        dueDate,
+        registrationDate: recordDate,
+      });
+
+      clearState();
+    } catch (error) {
+      console.error(error.response);
+    }
   };
 
   return (
@@ -48,7 +61,7 @@ export const DeliveryInformation = () => {
           Pallet ID:
         </Grid>
         <Grid item xs={6}>
-          <TextField inputProps={{ readOnly: true }} value="TODO" />
+          <span>{pallet.id}</span>
         </Grid>
 
         <Grid item xs={6}>
@@ -106,11 +119,7 @@ export const DeliveryInformation = () => {
           Record date:
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            inputProps={{ readOnly: true }}
-            type="date"
-            value={textFieldDateFormat(recordDate)}
-          />
+          <span>{recordDate.toLocaleDateString("fi-FI")}</span>
         </Grid>
 
         <Grid item xs={6}>
@@ -135,11 +144,7 @@ export const DeliveryInformation = () => {
           Due date:
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            inputProps={{ readOnly: true }}
-            type="date"
-            value={textFieldDateFormat(dueDate)}
-          />
+          <span>{dueDate.toLocaleDateString("fi-FI")}</span>
         </Grid>
 
         <Grid item xs={12}>
