@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./App.css";
@@ -21,6 +22,14 @@ export const App = () => {
     fetchPallet();
   }, [setPallet]);
 
+  const newPallet = async () => {
+    const response = await axios.post(`${BASE_URL}/pallets/new`, {
+      user: "Andreas Näsman",
+    });
+
+    if (response.status === 200) fetchPallet();
+  };
+
   const addBox = async (box) => {
     const response = await axios.post(
       `${BASE_URL}/pallets/${pallet.id}/add-box`,
@@ -30,5 +39,12 @@ export const App = () => {
     if (response.status === 200) fetchPallet();
   };
 
-  return <DeliveryInformation addBox={addBox} pallet={pallet} />;
+  return (
+    <div>
+      <Button color="primary" onClick={newPallet} variant="contained">
+        New Pallet
+      </Button>
+      <DeliveryInformation addBox={addBox} pallet={pallet} />;
+    </div>
+  );
 };
