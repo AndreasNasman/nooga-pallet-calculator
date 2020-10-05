@@ -24,7 +24,7 @@ router.route("/new").post((request, response) => {
     });
 });
 
-const MAX_BOXES = 3;
+const MAX_BOXES = 25;
 router.route("/:id/add-box").post((request, response) => {
   Pallet.findOne({ id: request.params.id }, (error, pallet) => {
     if (error) {
