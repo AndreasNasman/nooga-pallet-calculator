@@ -6,11 +6,11 @@ const palletSchema = new Schema({
   boxes: [
     {
       amount: Number,
-      article_name: String,
-      batch_number: Number,
-      box_number: Number,
-      due_date: Date,
-      registration_date: Date,
+      articleName: String,
+      batchNumber: Number,
+      boxNumber: Number,
+      dueDate: Date,
+      registrationDate: Date,
     },
   ],
   creation_date: { default: Date.now, type: Date },
