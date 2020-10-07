@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import styles from "./App.module.css";
 import { BarChart } from "./components/BarChart/BarChart";
 import { DeliveryInformation } from "./components/DeliveryInformation/DeliveryInformation";
