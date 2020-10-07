@@ -63,7 +63,7 @@ export const DeliveryInformation = ({ addBox, newPallet, pallet, pallets }) => {
 
   const print = () => {
     const docDefinition = generatePDFContent(pallets);
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download("Pallets Log");
   };
 
   return (
