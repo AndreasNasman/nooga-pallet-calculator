@@ -8,36 +8,34 @@ import { DeliveryInformation } from "./components/DeliveryInformation/DeliveryIn
 const BASE_URL = "http://localhost:4000";
 
 export const App = () => {
-  const [pallet, setPallet] = useState({ boxes: [], id: "" });
+  const [pallets, setPallets] = useState([]);
+  const activePallet = pallets[pallets.length - 1] || { boxes: [], id: "" };
 
-  const fetchPallet = async () => {
+  const fetchPallets = async () => {
     const response = await axios(`${BASE_URL}/pallets`);
 
-    if (response.status === 200) {
-      const currentPallet = response.data[response.data.length - 1];
-      if (currentPallet) setPallet(currentPallet);
-    }
+    if (response.status === 200) setPallets(response.data);
   };
 
   useEffect(() => {
-    fetchPallet();
-  }, [setPallet]);
+    fetchPallets();
+  }, [setPallets]);
 
   const newPallet = async () => {
     const response = await axios.post(`${BASE_URL}/pallets/new`, {
       user: "Andreas Näsman",
     });
 
-    if (response.status === 200) fetchPallet();
+    if (response.status === 200) fetchPallets();
   };
 
   const addBox = async (box) => {
     const response = await axios.post(
-      `${BASE_URL}/pallets/${pallet.id}/add-box`,
+      `${BASE_URL}/pallets/${activePallet.id}/add-box`,
       box
     );
 
-    if (response.status === 200) fetchPallet();
+    if (response.status === 200) fetchPallets();
   };
 
   return (
@@ -45,10 +43,11 @@ export const App = () => {
       <DeliveryInformation
         addBox={addBox}
         newPallet={newPallet}
-        pallet={pallet}
+        pallet={activePallet}
+        pallets={pallets}
       />
 
-      <BarChart pallet={pallet} />
+      <BarChart pallet={activePallet} />
     </div>
   );
 };

@@ -13,7 +13,7 @@ const palletSchema = new Schema({
       registrationDate: Date,
     },
   ],
-  creation_date: { default: Date.now, type: Date },
+  creationDate: { default: Date.now, type: Date },
   id: String,
   user: String,
 });
