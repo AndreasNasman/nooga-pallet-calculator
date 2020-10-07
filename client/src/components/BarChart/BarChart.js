@@ -32,7 +32,7 @@ export const BarChart = ({ pallet }) => {
         <BarSeries valueField="numberOfBoxes" argumentField="id" />
 
         <Animation />
-        <Title text={id} />
+        <Title text={`Pallet: ${id}`} />
       </Chart>
 
       <p className={styles.number_of_boxes}>
