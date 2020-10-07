@@ -17,9 +17,9 @@ scale.ticks = () => [0, 5, 10, 15, 20, 25];
 
 const modifyDomain = () => [0, MAX_BOXES];
 
-export const BarChart = ({ pallet }) => {
-  const numberOfBoxes = pallet.boxes.length;
-  const { id } = pallet;
+export const BarChart = ({ activePallet }) => {
+  const { id } = activePallet;
+  const numberOfBoxes = activePallet.boxes.length;
 
   const data = [{ id, numberOfBoxes }];
 
@@ -29,7 +29,7 @@ export const BarChart = ({ pallet }) => {
         <ValueAxis />
         <ValueScale factory={() => scale} modifyDomain={modifyDomain} />
 
-        <BarSeries valueField="numberOfBoxes" argumentField="id" />
+        <BarSeries argumentField="id" valueField="numberOfBoxes" />
 
         <Animation />
         <Title text={`Pallet: ${id}`} />
