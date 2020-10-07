@@ -3,8 +3,10 @@ const camelCaseToWords = (string) => string.split(/(?=[A-Z])/).join(" ");
 const capitalizeOnlyFirstLetter = (string) =>
   string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
-const formatTableHeader = (header) =>
-  capitalizeOnlyFirstLetter(camelCaseToWords(header));
+const formatTableHeader = (header) => {
+  if (header === "id") return header.toUpperCase();
+  else return capitalizeOnlyFirstLetter(camelCaseToWords(header));
+};
 
 const buildHeaderRow = (headers) => {
   return headers.map((header) => ({
