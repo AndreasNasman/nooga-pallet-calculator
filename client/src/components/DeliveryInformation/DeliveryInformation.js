@@ -24,7 +24,12 @@ const initialState = {
   recordDate: new Date(),
 };
 
-export const DeliveryInformation = ({ addBox, newPallet, pallet, pallets }) => {
+export const DeliveryInformation = ({
+  activePallet,
+  addBox,
+  newPallet,
+  pallets,
+}) => {
   const [
     { amount, articleName, batchNumber, boxNumber, daysToDueDate, recordDate },
     setState,
@@ -88,7 +93,7 @@ export const DeliveryInformation = ({ addBox, newPallet, pallet, pallets }) => {
             Pallet ID:
           </Grid>
           <Grid item xs={6}>
-            <span>{pallet.id}</span>
+            <span>{activePallet.id}</span>
           </Grid>
 
           <Grid item xs={6}>

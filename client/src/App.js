@@ -13,7 +13,6 @@ export const App = () => {
 
   const fetchPallets = async () => {
     const response = await axios(`${BASE_URL}/pallets`);
-
     if (response.status === 200) setPallets(response.data);
   };
 
@@ -51,11 +50,11 @@ export const App = () => {
       <DeliveryInformation
         addBox={addBox}
         newPallet={newPallet}
-        pallet={activePallet}
+        activePallet={activePallet}
         pallets={pallets}
       />
 
-      <BarChart pallet={activePallet} />
+      <BarChart activePallet={activePallet} />
     </div>
   );
 };
