@@ -7,9 +7,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Add, Print, Save } from "@material-ui/icons";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import * as React from "react";
 import { useState } from "react";
 import styles from "./DeliveryInformation.module.css";
+import { generatePDFContent } from "./utilities";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const initialState = {
   amount: "",
@@ -20,7 +24,7 @@ const initialState = {
   recordDate: new Date(),
 };
 
-export const DeliveryInformation = ({ addBox, newPallet, pallet }) => {
+export const DeliveryInformation = ({ addBox, newPallet, pallet, pallets }) => {
   const [
     { amount, articleName, batchNumber, boxNumber, daysToDueDate, recordDate },
     setState,
@@ -55,6 +59,11 @@ export const DeliveryInformation = ({ addBox, newPallet, pallet }) => {
     } catch (error) {
       console.error(error.response);
     }
+  };
+
+  const print = () => {
+    const docDefinition = generatePDFContent(pallets);
+    pdfMake.createPdf(docDefinition).download();
   };
 
   return (
@@ -178,7 +187,12 @@ export const DeliveryInformation = ({ addBox, newPallet, pallet }) => {
         </Grid>
       </form>
 
-      <Button color="primary" startIcon={<Print />} variant="contained">
+      <Button
+        color="primary"
+        onClick={print}
+        startIcon={<Print />}
+        variant="contained"
+      >
         Print list
       </Button>
     </Paper>
